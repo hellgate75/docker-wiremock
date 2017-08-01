@@ -11,6 +11,8 @@ ENV JAVA_HOME=/usr/lib/jvm/java-8-oracle \
     DEBIAN_FRONTEND=noninteractive \
     WM_CONFIGURATION_SCRIPT_URL= \
     WM_CERTIFICATE_TAR_GZ_URL= \
+    WM_MAPPINGS_TAR_GZ_URL= \
+    WM_STATIC_FILES_TAR_GZ_URL= \
     WM_HTTP_PORT=8080 \
     WM_HTTPS_PORT=443 \
     WM_USE_SSL=no \
@@ -52,7 +54,10 @@ RUN apt-get update \
     && apt-get -y clean \
     && rm -rf /var/lib/apt/lists/*
 
-RUN mkdir /wiremock
+RUN mkdir /wiremock \
+    && mkdir /wiremock/mappings \
+    && mkdir /wiremock/__files \
+    && mkdir /wiremock/certificates
 
 WORKDIR /wiremock
 
