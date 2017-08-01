@@ -46,26 +46,21 @@ Here a list of WireMock™ related pages :
 Docker container exposes following ports:
 
 * `8080`:
-
 Wiremock™ Server HTTP port
 
 * `443`:
-
 Wiremock™ Server HTTPS port
 
 
 Docker container exposes following volumes:
 
 * `/wiremock/mappings`:
-
 Folder containing mapping files
 
 * `/wiremock/__files`:
-
 Folder containing static files
 
 * `/wiremock/certificates`:
-
 Folder containing SSL certificate files
 
 
