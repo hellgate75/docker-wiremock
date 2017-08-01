@@ -2,8 +2,6 @@
 
 start-wiremock-server
 
-sleep 2
-
 head-wiremock
 
 echo "Logging wiremock ..."

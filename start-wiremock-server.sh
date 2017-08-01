@@ -141,4 +141,4 @@ mkdir -p /var/log/wiremock
 
 cd /wiremock
 
-java -cp body-transformer.jar:wiremock-standalone.jar:httpcomponents-client-$WM_HTTP_CC_VERSION/lib/* com.github.tomakehurst.wiremock.standalone.WireMockServerRunner$WM_ARGS >> /var/log/wiremock/server.log
+nohup java -cp body-transformer.jar:wiremock-standalone.jar:httpcomponents-client-$WM_HTTP_CC_VERSION/lib/* com.github.tomakehurst.wiremock.standalone.WireMockServerRunner$WM_ARGS >> /var/log/wiremock/server.log &
