@@ -1,4 +1,4 @@
-<p align="center"><img src="https://github.com/hellgate75/docker-wiremock/tree/master/images/wiremock-logo.png" width="241"  height="110" /></p>
+<p align="center"><img src="https://github.com/hellgate75/docker-wiremock/raw/master/images/wiremock-logo.png" width="241"  height="110" /></p>
 
 ## Docker Image for Wiremock™
 
