@@ -54,7 +54,7 @@ fi
 if [[ -e /wiremock/certificates ]]; then
   if [[ "" != "$(ls /wiremock/certificates/)" ]]; then
     echo "Copying wiremock certificates ..."
-    cp /wiremock/certificates/* /etc/ssl/certificates/
+    cp /wiremock/certificates/* /etc/ssl/certs/
   fi
 fi
 
