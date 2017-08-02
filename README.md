@@ -41,6 +41,37 @@ Here a list of WireMock™ related pages :
 * [Getting Started](http://wiremock.org/docs/getting-started/)
 
 
+### WireMock™ Server configuration
+
+WireMock™ Server has been provisioned of Apache™ Zookeper system, since now named Configuration Management framework.
+
+
+#### How does Apache™ Zookeper integration works?
+
+This container accepts any configuration environment variable declared in docker image on Docker Hub registry : [hellgate75/zookeeper](https://hub.docker.com/r/hellgate75/zookeeper/), related to GitHub repository : [hellgate75/zookeeper](https://github.com/hellgate75/zookeeper).
+
+Additionaly we have provided following configuration environment variable :
+
+* `WIREMOCK_ZOOKEEPER_INTEGRATION_SCRIPT_URL` : Remote bash script Url, cotaining environment variables, downloaded and executed before container start-up (default: )
+* `ZOOKEEPER_CLIENT_SERVICE` : [yes/no] Execute Apache™ Zookeper Client Service on container start-up (default: no)
+* `ZOOKEEPER_SERVER_SERVICE` : [yes/no] Execute Apache™ Zookeper Server Service on container start-up, if Apache™ Zookeper Client Service is enabled (default: no)
+* `WIREMOCK_SERVICE_PATH` : Full Apache™ Zookeper WireMock™ service configuration base path (default: )
+* `WIREMOCK_ARTIFACT_URL_ENTRY` : Remote Apache™ Zookeper WireMock™ remote mappings artifact tar gz archive Url entry (default: )
+* `WIREMOCK_STATIC_URL_ENTRY` : Remote Apache™ Zookeper WireMock™ remote mappings artifact tar gz archive Url entry (default: )
+* `WIREMOCK_ZOOKEEPER_SSL_CERTS_URL_ENTRY` : Remote Apache™ Zookeper WireMock™ remote SSL certficate tar gz archive Url entry (default: )
+* `ZOOKEEPER_SERVER_CONFIG_URL_ENTRY` : Remote Apache™ Zookeper WireMock™ remote configuration file (e.g.: zoo.cfg) Url entry (default: )
+* `ZOOKEEPER_SERVER_CONFIG_SCRIPT_URL_ENTRY` : Remote Apache™ Zookeper WireMock™ remote shell script file (e.g: bootstrap-zookeeper.sh) Url entry (default: )
+* `ZOOKEEPER_SEEK_INTERVAL` : [seconds] Number of seconds before system seek again for changes in local/remote Apache™ Zookeper Server entries and updating local mappings, static files, certificates, service config and script batches if present in Apache™ Zookeper configuration (default: 300)
+* `ZOOKEEPER_SERVER_HOST` : Apache™ Zookeper Server hostaname/ip address (default: localhost)
+* `ZOOKEEPER_SERVER_PORT` : Apache™ Zookeper Server hostaname/ip client port (default: 2181)
+* `LOG_ON_ZOOKEEPER` : [yes/no] Save on Apache™ Zookeper timestamp of last access (default: no)
+* `ZOOKEEPER_LOG_TIMEOUT` : Number of seconds between two logs (default: 600)
+* `CURRENT_SERVER_PATH` : Apache™ Zookeper path (/unique_id/my_path../key...) where store docker container data [timestamp, name, ipaddress, etc...] (default: )
+* `CURRENT_SERVER_ID` : Apache™ Zookeper unique server identifier (default: )
+
+We now try explain what service path and any entry combination mean. We gice as assumption that `WIREMOCK_SERVICE_PATH` is equals to `my-wiremock` and `WIREMOCK_ARTIFACT_URL_ENTRY` is equals to `my-mappings`, we expect in Apache™ Zookeper Server, at least one value for WireMock™ Mappings tar gz artifact remote Url, stored in zookeeper path `my-wiremock/my-mappings`. On start-up, if Apache™ Zookeper Client is enabled, docker container will download automatically artifact from url saved on Apache™ Zookeper `my-wiremock/my-mappings` path, updating and refreshing mapping files and context every `ZOOKEEPER_SEEK_INTERVAL` seconds. Same procedure will be applied for : static files, Apache™ Zookeper SSL certificates, Apache™ Zookeper configuration file, Apache™ Zookeper environment configuration variables shell script.
+
+
 ### Docker Environment
 
 Docker container exposes following ports:
