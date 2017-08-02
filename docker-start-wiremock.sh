@@ -1,5 +1,7 @@
 #!/bin/bash
 
+service cron start
+
 start-wiremock-server
 
 head-wiremock
