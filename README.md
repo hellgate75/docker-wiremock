@@ -46,9 +46,9 @@ Here a list of WireMock™ related pages :
 WireMock™ Server has been provisioned of Apache™ Zookeper system, since now named Configuration Management framework.
 
 
-#### How does Apache™ Zookeper integration works?
+#### How does Apache™ Zookeper integration work?
 
-This container accepts any configuration environment variable declared in docker image on Docker Hub registry : [hellgate75/zookeeper](https://hub.docker.com/r/hellgate75/zookeeper/), related to GitHub repository : [hellgate75/zookeeper](https://github.com/hellgate75/zookeeper).
+Any of docker image containers accept any configuration environment variable declared in Apache™ Zookeper Docker Image, available on Docker Hub registry : [Docker Hub registry hellgate75/zookeeper](https://hub.docker.com/r/hellgate75/zookeeper/), related to GitHub project repository : [GitHub repository hellgate75/zookeeper](https://github.com/hellgate75/zookeeper).
 
 Additionaly we have provided following configuration environment variable :
 
