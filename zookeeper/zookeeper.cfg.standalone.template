@@ -15,4 +15,3 @@ autopurge.purgeInterval=PURGE_INTERVAL
 syncEnabled=SYNC_ENABLED
 initLimit=INIT_LIMIT
 syncLimit=SYNC_LIMIT
-admin.serverPort=8081

@@ -18,4 +18,3 @@ electionAlg=ELECTION_ALG
 initLimit=INIT_LIMIT
 syncLimit=SYNC_LIMIT
 leaderServes=LEADER_SERVER
-admin.serverPort=8081

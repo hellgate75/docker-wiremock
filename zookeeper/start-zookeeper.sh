@@ -16,19 +16,19 @@ function download_files() {
 }
 
 if ! [[ -z "$ZOOKEEPER_CONFIGURATION_URL" ]]; then
-  echo "Downloading ZooKeeper configuration from url : $ZOOKEEPER_CONFIGURATION_URL ..."
+  echo "Downloading Apache ZooKeeper configuration from url : $ZOOKEEPER_CONFIGURATION_URL ..."
   download_files /root/zoo-dwld.cfg $ZOOKEEPER_CONFIGURATION_URL
   if [[ -e /root/zoo-dwld.cfg ]]; then
-    echo "Applying ZooKeeper download configuration ..."
+    echo "Applying Apache ZooKeeper download configuration ..."
     cp /root/zoo-dwld.cfg $ZK_HOME/conf/zoo.cfg
     rm -f /root/zoo-dwld.cfg
   fi
 else
  if ! [[ -z "$ZOOKEEPER_CONFIGURATION_SCRIPT_URL" ]]; then
-   echo "Downloading ZooKeeper configuration from url : $ZOOKEEPER_CONFIGURATION_SCRIPT_URL ..."
+   echo "Downloading Apache ZooKeeper configuration from url : $ZOOKEEPER_CONFIGURATION_SCRIPT_URL ..."
    download_files /root/setup-zookeeper.sh $ZOOKEEPER_CONFIGURATION_SCRIPT_URL
    if [[ -e /root/setup-zookeeper.sh ]]; then
-     echo "Applying ZooKeeper downloaded script configuration ..."
+     echo "Applying Apache ZooKeeper downloaded script configuration ..."
      . /root/setup-zookeeper.sh
      rm -f /root/setup-zookeeper.sh
    fi
@@ -39,7 +39,7 @@ fi
 cd /usr/lib/zookeeper
 
 if [[ -z "$RUNNING" ]]; then
-  echo "Starting ZooKeeper ..."
+  echo "Starting Apache ZooKeeper ..."
   if [[ -z "$(ls $ZOOKEEPER_DATA_FOLDER/*)" ]]; then
     zkServer-initialize.sh
   fi

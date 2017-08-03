@@ -100,7 +100,8 @@ RUN curl -sSL http://www-eu.apache.org/dist/zookeeper/zookeeper-$ZOOKEEPER_RELEA
     && mkdir -p $ZOOKEEPER_HOME/conf \
     && mkdir -p $ZOOKEEPER_HOME/logs \
     && echo "head-zookeeper" >> /root/.bashrc \
-    && echo "head-wiremock" >> /root/.bashrc
+    && echo "head-wiremock" >> /root/.bashrc \
+    && echo ". setenv-zookeeper" >> /root/.bashrc
 
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 COPY docker-start-wiremock.sh /docker-start-wiremock.sh

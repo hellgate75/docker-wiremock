@@ -5,8 +5,6 @@ function apply_config() {
   sed -i s/$1/$2/g $3
 }
 
-ZK_ADMIN_SERVER_ADDRESS=8181
-
 echo "Configuring ZooKeeper ..."
 export CONFIGURATION=false
 if ! [[ -z "$ZOOKEEPER_CONFIGURATION_URL" ]]; then
