@@ -1,8 +1,6 @@
 #!/bin/bash
 FLAG_ZOOKEEPER="$(status-zookeeper)"
 
-netstat -anp
-
    echo '                                     ____' \
 && echo '                                    |  _ \            _   _  ' \
 && echo '                                    | | | | ___  ___ | | / /___  _  __' \

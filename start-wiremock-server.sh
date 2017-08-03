@@ -9,7 +9,7 @@ function download_files() {
   fi
 }
 if ! [[ -z "$RUNNING" ]]; then
-  echo "Wiremock Srver already running ..."
+  echo "Wiremock Server already running ..."
   exit 0
 fi
 

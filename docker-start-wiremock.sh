@@ -20,6 +20,8 @@ fi
 
 start-wiremock-server
 
+sleep 1
+
 head-wiremock
 
 if [[ "yes" == "$ZOOKEEPER_CLIENT_SERVICE" ]]; then
