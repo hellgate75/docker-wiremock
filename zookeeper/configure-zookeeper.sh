@@ -152,5 +152,5 @@ if [[ "false" == "$CONFIGURATION" ]]; then
   echo "admin.serverPort=$ZK_ADMIN_SERVER_PORT"  >>  $ZOOKEEPER_HOME/conf/zoo.cfg
   echo "admin.idleTimeout=$ZK_ADMIN_SERVER_IDLE_TIMEOUT"  >>  $ZOOKEEPER_HOME/conf/zoo.cfg
   echo "admin.commandURL=$ZK_ADMIN_SERVER_COMMAND_URL"  >>  $ZOOKEEPER_HOME/conf/zoo.cfg
-
 fi
+sed -i 's/.*=$/#&/g' $ZOOKEEPER_HOME/conf/zoo.cfg

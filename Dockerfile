@@ -116,6 +116,7 @@ COPY zookeeper/status-zookeeper.sh /usr/local/bin/status-zookeeper
 COPY zookeeper/stop-zookeeper.sh /usr/local/bin/stop-zookeeper
 COPY zookeeper/head-zookeeper.sh /usr/local/bin/head-zookeeper
 COPY zookeeper/configure-zookeeper.sh /usr/local/bin/configure-zookeeper
+COPY zookeeper/init_default_env_zookeeper.sh /usr/local/bin/setenv-zookeeper
 
 RUN chmod 777 /docker-start-wiremock.sh \
     && chmod 777 /docker-entrypoint.sh \

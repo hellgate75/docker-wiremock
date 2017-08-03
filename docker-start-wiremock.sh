@@ -1,4 +1,5 @@
 #!/bin/bash
+setenv-zookeeper
 
 ZOOKERPER_ACTIVE="$(ps -eaf | grep java | grep zookeeper)"
 
