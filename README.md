@@ -82,17 +82,42 @@ Wiremock™ Server HTTP port
 * `443`:
 Wiremock™ Server HTTPS port
 
+* `8081`:
+Apache™ Zookeper Commands REST interface port
+
+* `2181`:
+Apache™ Zookeper no-SSL port
+
+* `2182`:
+
+Apache™ Zookeper SSL port
+
 
 Docker container exposes following volumes:
 
 * `/wiremock/mappings`:
+
 Folder containing mapping files
 
 * `/wiremock/__files`:
+
 Folder containing static files
 
 * `/wiremock/certificates`:
+
 Folder containing SSL certificate files
+
+* `/var/lib/zookeeper` :
+
+Zookeeper Data folder.
+
+* `/var/lib/zookeeper-logs` :
+
+Zookeeper transaction logs folder.
+
+* `/var/lib/zookeeper-ssl`:
+
+Zookeeper ssl certificates and related files (related to keystore and truststore).
 
 
 Docker container defines following environment variables:
