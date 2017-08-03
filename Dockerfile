@@ -48,12 +48,12 @@ ENV JAVA_HOME=/usr/lib/jvm/java-8-oracle \
     WIREMOCK_STATIC_URL_ENTRY= \
     WIREMOCK_ZOOKEEPER_SSL_CERTS_URL_ENTRY= \
     ZOOKEEPER_RELEASE=3.5.3-beta \
-    ZOOKEEPER_HOME=/usr/local/zookeeper \
-    ZOOKEEPER_PREFIX=/usr/local/zookeeper \
-    ZOO_LOG_DIR=/usr/local/zookeeper/logs \
+    ZOOKEEPER_HOME=/usr/lib/zookeeper \
+    ZOOKEEPER_PREFIX=/usr/lib/zookeeper \
+    ZOO_LOG_DIR=/usr/lib/zookeeper/logs \
     ZOOKEEPER_DATA_FOLDER=/var/lib/zookeeper \
     ZOOKEEPER_LOGS_FOLDER=/var/lib/zookeeper-logs \
-    ZOOKEEPER_SSL_FOLDER=/var/lib/zookeeper-ssl \
+    ZOOKEEPER_SSL_FOLDER=/usr/lib/zookeeper-ssl \
     ZK_ADMIN_SERVER_ADDRESS=8181 \
     ZOOKEEPER_SERVER_CONFIG_URL_ENTRY= \
     ZOOKEEPER_SERVER_CONFIG_SCRIPT_URL_ENTRY= \
@@ -64,7 +64,7 @@ ENV JAVA_HOME=/usr/lib/jvm/java-8-oracle \
     ZOOKEEPER_LOG_TIMEOUT=300 \
     CURRENT_SERVER_PATH= \
     CURRENT_SERVER_ID= \
-    PATH=$PATH:/usr/local/zookeeper/bin
+    PATH=$PATH:/usr/lib/zookeeper/bin
 
 
 
@@ -92,8 +92,8 @@ RUN curl -sSL -o body-transformer.jar http://central.maven.org/maven2/com/openta
 RUN curl -sSL -o httpcomponents-client.tar.gz https://archive.apache.org/dist/httpcomponents/httpclient/binary/httpcomponents-client-$WM_HTTP_CC_VERSION-bin.tar.gz
 RUN tar -xzf httpcomponents-client.tar.gz
 
-RUN curl -sSL http://www-eu.apache.org/dist/zookeeper/zookeeper-$ZOOKEEPER_RELEASE/zookeeper-$ZOOKEEPER_RELEASE.tar.gz | tar -x -C /usr/local/ \
-    && cd /usr/local && ln -s zookeeper-* zookeeper \
+RUN curl -sSL http://www-eu.apache.org/dist/zookeeper/zookeeper-$ZOOKEEPER_RELEASE/zookeeper-$ZOOKEEPER_RELEASE.tar.gz | tar -x -C /usr/lib/ \
+    && cd /usr/lib && ln -s zookeeper-* zookeeper \
     && mkdir -p $ZOOKEEPER_DATA_FOLDER \
     && mkdir -p ZOOKEEPER_LOGS_FOLDER \
     && mkdir -p $ZOOKEEPER_SSL_FOLDER \

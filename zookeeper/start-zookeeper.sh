@@ -36,12 +36,10 @@ else
    configure-zookeeper
 fi
 
-cd /usr/lib/zookeeper
+cd $ZOOKEEPER_HOME
 
 if [[ -z "$RUNNING" ]]; then
   echo "Starting Apache ZooKeeper ..."
-  if [[ -z "$(ls $ZOOKEEPER_DATA_FOLDER/*)" ]]; then
-    zkServer-initialize.sh
-  fi
+  zkServer-initialize.sh --force
   zkEnv.sh && zkServer.sh start
 fi
