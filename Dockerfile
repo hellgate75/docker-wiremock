@@ -99,9 +99,11 @@ RUN curl -sSL http://www-eu.apache.org/dist/zookeeper/zookeeper-$ZOOKEEPER_RELEA
     && mkdir -p $ZOOKEEPER_SSL_FOLDER \
     && mkdir -p $ZOOKEEPER_HOME/conf \
     && mkdir -p $ZOOKEEPER_HOME/logs \
+    && mkdir -p /root/.wiremock \
     && echo "head-zookeeper" >> /root/.bashrc \
     && echo "head-wiremock" >> /root/.bashrc \
-    && echo ". setenv-zookeeper" >> /root/.bashrc
+    && echo ". setenv-zookeeper" >> /root/.bashr \
+    && echo ". custom-setenv-zookeeper" >> /root/.bashr
 
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 COPY docker-start-wiremock.sh /docker-start-wiremock.sh
@@ -118,6 +120,8 @@ COPY zookeeper/stop-zookeeper.sh /usr/local/bin/stop-zookeeper
 COPY zookeeper/head-zookeeper.sh /usr/local/bin/head-zookeeper
 COPY zookeeper/configure-zookeeper.sh /usr/local/bin/configure-zookeeper
 COPY zookeeper/init_default_env_zookeeper.sh /usr/local/bin/setenv-zookeeper
+COPY zookeeper/init_custom_env_zookeeper.sh /usr/local/bin/custom-setenv-zookeeper
+COPY zookeeper/init_custom_env_zookeeper.sh /root/.wiremock/bkp-custom-setenv-zookeeper
 
 RUN chmod 777 /docker-start-wiremock.sh \
     && chmod 777 /docker-entrypoint.sh \

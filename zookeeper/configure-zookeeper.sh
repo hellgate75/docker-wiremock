@@ -1,5 +1,16 @@
 #!/bin/bash
 
+function download_file() {
+  if [[ -z "$(echo $2|grep -i 'https://')" ]]; then
+    curl -L -o $1 $2
+    return "$?"
+  else
+    curl -sSL -o $1 $2
+    return "$?"
+  fi
+}
+
+
 function apply_config() {
   # replace in place text in $1 with $2 in file $3
   sed -i s/$1/$2/g $3
@@ -9,7 +20,7 @@ echo "Configuring ZooKeeper ..."
 export CONFIGURATION=false
 if ! [[ -z "$ZOOKEEPER_CONFIGURATION_URL" ]]; then
   echo "Configuring Apache Zookeeper v. $ZOOKEEPER_RELEASE via URL : $ZOOKEEPER_CONFIGURATION_URL ..."
-  curl -L $ZOOKEEPER_CONFIGURATION_URL > $ZOOKEEPER_HOME/conf/zoo.cfg
+  download_file $ZOOKEEPER_CONFIGURATION_URL $ZOOKEEPER_HOME/conf/zoo.cfg
   export URL_EXIT_CODE="$?"
   if [[ "0" == "$URL_EXIT_CODE" ]]; then
     echo "URL configuration recovered succesfully!!"

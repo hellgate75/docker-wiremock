@@ -1,13 +1,17 @@
 #!/bin/bash
 
 RUNNING="$(ps -eaf|grep java| grep 'wiremock-standalone'|grep -v grep)"
-function download_files() {
+
+function download_file() {
   if [[ -z "$(echo $2|grep -i 'https://')" ]]; then
     curl -L -o $1 $2
+    return "$?"
   else
-    download_files $1 $2
+    curl -sSL -o $1 $2
+    return "$?"
   fi
 }
+
 if ! [[ -z "$RUNNING" ]]; then
   echo "Wiremock Server already running ..."
   exit 0
@@ -15,12 +19,12 @@ fi
 
 if ! [[ -z "$WM_CONFIGURATION_SCRIPT_URL" ]]; then
   echo "Downloading Wiremock Server init shell script from URL : $WM_CONFIGURATION_SCRIPT_URL"
-  download_files /wiremock/environment.sh $WM_CONFIGURATION_SCRIPT_URL
+  download_file /wiremock/environment.sh $WM_CONFIGURATION_SCRIPT_URL
 fi
 
 if ! [[ -z "$WM_CERTIFICATE_TAR_GZ_URL" ]]; then
   echo "Downloading Wiremock Server certificates tar gz file from URL : $WM_CERTIFICATE_TAR_GZ_URL"
-  download_files /wiremock/certificates.tgz $WM_CERTIFICATE_TAR_GZ_URL
+  download_file /wiremock/certificates.tgz $WM_CERTIFICATE_TAR_GZ_URL
   if [[ -e /wiremock/certificates.tgz ]]; then
     echo "Extracting Wiremock Server certificates from file ..."
     tar -C /wiremock/certificates -xzf /wiremock/certificates.tgz
@@ -31,7 +35,7 @@ fi
 
 if ! [[ -z "$WM_MAPPINGS_TAR_GZ_URL" ]]; then
   echo "Downloading Wiremock Server mappings tar gz file from URL : $WM_MAPPINGS_TAR_GZ_URL"
-  download_files /wiremock/mappings.tgz $WM_MAPPINGS_TAR_GZ_URL
+  download_file /wiremock/mappings.tgz $WM_MAPPINGS_TAR_GZ_URL
   if [[ -e /wiremock/mappings.tgz ]]; then
     echo "Extracting Wiremock Server mappings from file ..."
     tar -C /wiremock/mappings -xzf /wiremock/mappings.tgz
@@ -42,7 +46,7 @@ fi
 
 if ! [[ -z "$WM_STATIC_FILES_TAR_GZ_URL" ]]; then
   echo "Downloading Wiremock Server static files tar gz file from URL : $WM_STATIC_FILES_TAR_GZ_URL"
-  download_files /wiremock/static-content.tgz $WM_STATIC_FILES_TAR_GZ_URL
+  download_file /wiremock/static-content.tgz $WM_STATIC_FILES_TAR_GZ_URL
   if [[ -e /wiremock/static-content.tgz ]]; then
     echo "Extracting Wiremock Server static files from file ..."
     tar -C /wiremock/__files -xzf /wiremock/static-content.tgz
