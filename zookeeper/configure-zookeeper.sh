@@ -17,6 +17,7 @@ function apply_config() {
 }
 
 echo "Configuring ZooKeeper ..."
+sed -i 's/zookeeper.console.threshold=.*/zookeeper.console.threshold=ERROR/g' $ZOOKEEPER_HOME/conf/log4j.properties
 export CONFIGURATION=false
 if ! [[ -z "$ZOOKEEPER_CONFIGURATION_URL" ]]; then
   echo "Configuring Apache Zookeeper v. $ZOOKEEPER_RELEASE via URL : $ZOOKEEPER_CONFIGURATION_URL ..."
