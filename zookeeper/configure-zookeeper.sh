@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 function download_file() {
   if [[ -z "$(echo $2|grep -i 'https://')" ]]; then

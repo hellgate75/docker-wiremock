@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 RUNNING="$(ps -eaf | grep java | grep zookeeper)"
 
