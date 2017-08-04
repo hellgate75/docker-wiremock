@@ -45,13 +45,13 @@ if ! [[ -z "$WIREMOCK_ZOOKEEPER_INTEGRATION_SCRIPT_URL" ]]; then
   else
     cp /root/.wiremock/bkp-custom-setenv-zookeeper /usr/local/bin/custom-setenv-zookeeper
     chmod 777 /usr/local/bin/custom-setenv-zookeeper
-    echo "Error [$URL_EXIT_CODE] retrieving integration script from URL : $ZOOKEEPER_CONFIGURATION_URL"
+    echo "Error [$URL_EXIT_CODE] retrieving integration script from URL : $WIREMOCK_ZOOKEEPER_INTEGRATION_SCRIPT_URL"
   fi
 fi
 
-if [[ "yes" == "$ZOOKEEPER_CLIENT_SERVICE" ]]; then
+. custom-setenv-zookeeper
 
-  . /usr/local/bin/custom-setenv-zookeeper
+if [[ "yes" == "$ZOOKEEPER_CLIENT_SERVICE" ]]; then
 
   if ! [[ -e /root/.configure-zookeeper-client  ]]; then
     set_crontab_task $ZOOKEEPER_SEEK_INTERVAL_MIN $ZOOKEEPER_SEEK_INTERVAL_HOUR "root" "seek-zookeeper"
