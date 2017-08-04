@@ -20,7 +20,7 @@ echo "Configuring ZooKeeper ..."
 export CONFIGURATION=false
 if ! [[ -z "$ZOOKEEPER_CONFIGURATION_URL" ]]; then
   echo "Configuring Apache Zookeeper v. $ZOOKEEPER_RELEASE via URL : $ZOOKEEPER_CONFIGURATION_URL ..."
-  download_file $ZOOKEEPER_CONFIGURATION_URL $ZOOKEEPER_HOME/conf/zoo.cfg
+  download_file $ZOOKEEPER_HOME/conf/zoo.cfg $ZOOKEEPER_CONFIGURATION_URL
   export URL_EXIT_CODE="$?"
   if [[ "0" == "$URL_EXIT_CODE" ]]; then
     echo "URL configuration recovered succesfully!!"

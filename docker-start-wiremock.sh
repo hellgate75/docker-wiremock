@@ -37,7 +37,7 @@ ZOOKERPER_ACTIVE="$(ps -eaf | grep java | grep zookeeper)"
 
 if ! [[ -z "$WIREMOCK_ZOOKEEPER_INTEGRATION_SCRIPT_URL" ]]; then
   echo "Configuring Apache Zookeeper v. $ZOOKEEPER_RELEASE integration in Wiremock Server v. $WM_VERSION via URL : $WIREMOCK_ZOOKEEPER_INTEGRATION_SCRIPT_URL ..."
-  download_file $WIREMOCK_ZOOKEEPER_INTEGRATION_SCRIPT_URL /usr/local/bin/custom-setenv-zookeeper
+  download_file /usr/local/bin/custom-setenv-zookeeper $WIREMOCK_ZOOKEEPER_INTEGRATION_SCRIPT_URL
   export URL_EXIT_CODE="$?"
   if [[ "0" == "$URL_EXIT_CODE" ]]; then
     echo "URL integration script recovered succesfully!!"
