@@ -57,11 +57,13 @@ ENV JAVA_HOME=/usr/lib/jvm/java-8-oracle \
     ZK_ADMIN_SERVER_ADDRESS=8181 \
     ZOOKEEPER_SERVER_CONFIG_URL_ENTRY= \
     ZOOKEEPER_SERVER_CONFIG_SCRIPT_URL_ENTRY= \
-    ZOOKEEPER_SEEK_INTERVAL=300 \
+    ZOOKEEPER_SEEK_INTERVAL_MIN=15 \
+    ZOOKEEPER_SEEK_INTERVAL_HOUR= \
     ZOOKEEPER_SERVER_HOST=localhost \
     ZOOKEEPER_SERVER_PORT=2181 \
     LOG_ON_ZOOKEEPER=no \
-    ZOOKEEPER_LOG_TIMEOUT=300 \
+    ZOOKEEPER_LOG_INTERVAL_MIN=15 \
+    ZOOKEEPER_LOG_INTERVAL_HOUR= \
     CURRENT_SERVER_PATH= \
     CURRENT_SERVER_ID= \
     PATH=$PATH:/usr/lib/zookeeper/bin
@@ -122,11 +124,15 @@ COPY zookeeper/configure-zookeeper.sh /usr/local/bin/configure-zookeeper
 COPY zookeeper/init_default_env_zookeeper.sh /usr/local/bin/setenv-zookeeper
 COPY zookeeper/init_custom_env_zookeeper.sh /usr/local/bin/custom-setenv-zookeeper
 COPY zookeeper/init_custom_env_zookeeper.sh /root/.wiremock/bkp-custom-setenv-zookeeper
+COPY zookeeper/client-seek-zookeeper.sh /usr/local/bin/seek-zookeeper
+COPY zookeeper/client-log-zookeeper.sh /usr/local/bin/log-zookeeper
+COPY zookeeper/crontab /etc/crontab
 
 RUN chmod 777 /docker-start-wiremock.sh \
     && chmod 777 /docker-entrypoint.sh \
     && chmod 777 /usr/local/bin/*-wiremock* \
-    && chmod +x /usr/local/bin/*zookeeper
+    && chmod +x /usr/local/bin/*zookeeper \
+    && chmod 644 /etc/crontab
 
 VOLUME ["/wiremock/mappings", "/wiremock/__files", "/wiremock/certificates", "/var/lib/zookeeper", "/var/lib/zookeeper-logs", "/var/lib/zookeeper-ssl"]
 

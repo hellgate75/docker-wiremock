@@ -10,6 +10,27 @@ function download_file() {
   fi
 }
 
+function set_crontab_task() {
+  CRON_MINS="$1"
+  CRON_HOUR="$2"
+  if [[ "" == "$CRON_MINS" ]]; then
+    if [[ -z "$CRON_HOUR" ]]; then
+      CRON_MINS=15
+    else
+      CRON_MINS="*"
+    fi
+  fi
+  if [[ "" == "$CRON_HOUR" ]]; then
+    if [[ -z "$CRON_MINS" ]]; then
+      CRON_MINS=15
+    else
+      CRON_HOUR="*"
+    fi
+  fi
+  echo "$CRON_MINS $CRON_HOUR	* * *	$3    $4" >> etc/crontab
+
+}
+
 . setenv-zookeeper
 
 ZOOKERPER_ACTIVE="$(ps -eaf | grep java | grep zookeeper)"
@@ -31,6 +52,17 @@ fi
 if [[ "yes" == "$ZOOKEEPER_CLIENT_SERVICE" ]]; then
 
   . /usr/local/bin/custom-setenv-zookeeper
+
+  if ! [[ -e /root/.configure-zookeeper-client  ]]; then
+    set_crontab_task $ZOOKEEPER_SEEK_INTERVAL_MIN $ZOOKEEPER_SEEK_INTERVAL_HOUR "root" "seek-zookeeper"
+    touch /root/.configure-zookeeper-client
+  fi
+  if [[ "yes" == "$LOG_ON_ZOOKEEPER" ]]; then
+    if ! [[ -e /root/.configure-zookeeper-log  ]]; then
+      set_crontab_task $ZOOKEEPER_LOG_INTERVAL_MIN $ZOOKEEPER_LOG_INTERVAL_HOUR "root" "log-zookeeper"
+      touch /root/.configure-zookeeper-log
+    fi
+  fi
 
   service cron start
 
