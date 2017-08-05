@@ -51,9 +51,9 @@ ENV JAVA_HOME=/usr/lib/jvm/java-8-oracle \
     ZOOKEEPER_HOME=/usr/lib/zookeeper \
     ZOOKEEPER_PREFIX=/usr/lib/zookeeper \
     ZOO_LOG_DIR=/usr/lib/zookeeper/logs \
-    ZOOKEEPER_DATA_FOLDER=/var/lib/zookeeper \
-    ZOOKEEPER_LOGS_FOLDER=/var/lib/zookeeper-logs \
-    ZOOKEEPER_SSL_FOLDER=/usr/lib/zookeeper-ssl \
+    ZOOKEEPER_DATA_FOLDER=/var/local/zookeeper \
+    ZOOKEEPER_LOGS_FOLDER=/var/local/zookeeper-logs \
+    ZOOKEEPER_SSL_FOLDER=/usr/local/zookeeper-ssl \
     ZK_ADMIN_SERVER_ADDRESS=8181 \
     ZOOKEEPER_SERVER_CONFIG_URL_ENTRY= \
     ZOOKEEPER_SERVER_CONFIG_SCRIPT_URL_ENTRY= \
@@ -102,8 +102,10 @@ RUN curl -sSL http://www-eu.apache.org/dist/zookeeper/zookeeper-$ZOOKEEPER_RELEA
     && mkdir -p $ZOOKEEPER_HOME/conf \
     && mkdir -p $ZOOKEEPER_HOME/logs \
     && mkdir -p /root/.wiremock \
+    && mkdir -p /root/.zookeeper \
     && echo "head-zookeeper" >> /root/.bashrc \
     && echo "head-wiremock" >> /root/.bashrc \
+    && echo ". setenv-zookeeper" >> /root/.bashrc \
     && echo ". setenv-zookeeper" >> /root/.bashrc \
     && echo ". custom-setenv-zookeeper" >> /root/.bashrc
 
@@ -126,6 +128,10 @@ COPY zookeeper/init_custom_env_zookeeper.sh /usr/local/bin/custom-setenv-zookeep
 COPY zookeeper/init_custom_env_zookeeper.sh /root/.wiremock/bkp-custom-setenv-zookeeper
 COPY zookeeper/client-seek-zookeeper.sh /usr/local/bin/seek-zookeeper
 COPY zookeeper/client-log-zookeeper.sh /usr/local/bin/log-zookeeper
+COPY zookeeper/load-zookeeper-data.sh /usr/local/bin/import-data-zookeeper
+COPY zookeeper/get-zookeeper-node.sh /usr/local/bin/get-node-zookeeper
+COPY zookeeper/set-zookeeper-node.sh /usr/local/bin/set-node-zookeeper
+COPY zookeeper/default-setenv-zookeeper.sh /root/.zookeeper/default-setenv-zookeeper.sh
 COPY zookeeper/crontab /etc/crontab
 
 RUN chmod 777 /docker-start-wiremock.sh \
@@ -134,7 +140,7 @@ RUN chmod 777 /docker-start-wiremock.sh \
     && chmod +x /usr/local/bin/*zookeeper \
     && chmod 644 /etc/crontab
 
-VOLUME ["/wiremock/mappings", "/wiremock/__files", "/wiremock/certificates", "/var/lib/zookeeper", "/var/lib/zookeeper-logs", "/var/lib/zookeeper-ssl"]
+VOLUME ["/wiremock/mappings", "/wiremock/__files", "/wiremock/certificates", "/var/local/zookeeper", "/var/local/zookeeper-logs", "/var/local/zookeeper-ssl"]
 
 CMD /docker-start-wiremock.sh
 

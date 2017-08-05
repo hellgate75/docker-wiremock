@@ -89,6 +89,8 @@ if [[ "yes" == "$ZOOKEEPER_CLIENT_SERVICE" ]]; then
     if [[ -z "$ZOOKERPER_ACTIVE" ]]; then
       echo "Configuring Apache Zookeeper v. $ZOOKEEPER_RELEASE ..."
       start-zookeeper
+      sleep 2
+      import-data-zookeeper
       head-zookeeper
     fi
   fi

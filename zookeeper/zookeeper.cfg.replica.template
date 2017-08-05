@@ -1,8 +1,8 @@
 tickTime=TICK_TIME
-dataDir=/usr/lib/zookeeper/
+dataDir=/usr/local/zookeeper/
 clientPort=CLIENT_PORT
 secureClientPort=SECURE_PORT
-dataLogDir=/usr/lib/zookeeper-logs
+dataLogDir=/var/local/zookeeper-logs
 globalOutstandingLimit=OUTSTANDING_LIMIT
 preAllocSize=PRE_ALLOC_SIZE
 snapCount=SNAP_COUNT
