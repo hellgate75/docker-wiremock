@@ -5,6 +5,15 @@
 This Docker Image prepare to run a Wiremock™ Server, useful to develop contract between UI and service layers
 
 
+### Wiremock™ Server versions
+
+
+Wiremock™ Server available versions are :
+
+* [Wiremock™ Server latest](https://github.com/hellgate75/docker-wiremock/tree/master/Dockerfile)
+* [Wiremock™ Server 2.7.1](https://github.com/hellgate75/docker-wiremock/tree/2.7.1/Dockerfile)
+
+
 ## Mock your APIs for fast, robust and comprehensive testing
 
 WireMock™ is a simulator for HTTP-based APIs. Some might consider it a service virtualization tool or a mock server.
