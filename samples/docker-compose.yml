@@ -21,7 +21,6 @@ services:
     links:
       - "zookeeper-server:zookeeper-master"
     environment:
-      - "ZOOKEEPER_CONFIGURATION_DATA_TARGZ_URL=https://github.com/hellgate75/docker-wiremock/raw/master/samples/zookeeper-config-data.tgz"
       - "WIREMOCK_ZOOKEEPER_INTEGRATION_SCRIPT_URL=https://raw.githubusercontent.com/hellgate75/docker-wiremock/master/samples/autoconfig-zookeeper-compose.sh"
     cap_add:
       - ALL
@@ -36,7 +35,7 @@ services:
       - zookeeper-logs:/var/local/zookeeper-logs
       - zookeeper-certs:/var/local/zookeeper-ssl
     environment:
-      - "ZOOKEEPER_CONFIGURATION_DATA_TARGZ_URL=https://github.com/hellgate75/docker-wiremock/raw/master/samples/zookeeper-config-data.tgz"
+      - "ZOOKEEPER_CONFIGURATION_DATA_TARGZ_URL=https://github.com/hellgate75/docker-wiremock/raw/master/samples/zookeeper-sample-config-data.tgz"
     cap_add:
       - ALL
     cap_drop:

@@ -22,12 +22,12 @@ ENABLED="$(get-node-zookeeper /$WIREMOCK_SERVICE_PATH $ZOOKEEPER_SERVER_ADDRESS)
 if [[ "enabled" == "$ENABLED" ]]; then
   echo "Remote Wiremock Server Configuration enabled ..."
   echo "Recovering configuration from Apache Zookeeper Server : $ZOOKEEPER_SERVER_ADDRESS"
-  VERSION="$(get-node-zookeeper /$WIREMOCK_SERVICE_PATH/$WIREMOCK_ARTIFACT_URL_ENTRY $ZOOKEEPER_SERVER_ADDRESS)"
+  VERSION="$(get-node-zookeeper /$WIREMOCK_SERVICE_PATH/version $ZOOKEEPER_SERVER_ADDRESS)"
   echo "Remote Version : $VERSION"
   if ! [[ -z "$VERSION" ]]; then
     touch /root/.zookeeper/config-version
     LOCAL_VERSION="$(cat /root/.zookeeper/config-version)"
-    if [[ "$LOCAL_VERSION" != "$VERSiON" ]]; then
+    if [[ "$LOCAL_VERSION" != "$VERSION" ]]; then
       touch /root/.zookeeper/config-artifacts
       LOCAL_ARTIFACTS="$(cat /root/.zookeeper/config-artifacts)"
       ARTIFACTS="$(get-node-zookeeper /$WIREMOCK_SERVICE_PATH/$WIREMOCK_ARTIFACT_URL_ENTRY $ZOOKEEPER_SERVER_ADDRESS)"
