@@ -75,7 +75,7 @@ RUN apt-get update \
     && apt-get -y upgrade \
     && apt-get -y install apt-utils \
     && apt-get -y install software-properties-common \
-    && apt-get -y install wget curl htop git vim net-tools \
+    && apt-get -y install wget curl htop git vim net-tools inetutils-tools inetutils-ping \
     && add-apt-repository -y -u ppa:webupd8team/java \
     && echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections \
     && echo -e "\n" | apt-get -y install oracle-java8-installer oracle-java8-set-default \
@@ -133,6 +133,7 @@ COPY zookeeper/client-log-zookeeper.sh /usr/local/bin/log-zookeeper
 COPY zookeeper/load-zookeeper-data.sh /usr/local/bin/import-data-zookeeper
 COPY zookeeper/get-zookeeper-node.sh /usr/local/bin/get-node-zookeeper
 COPY zookeeper/set-zookeeper-node.sh /usr/local/bin/set-node-zookeeper
+COPY zookeeper/log4j.properties /usr/lib/zookeeper/conf/log4j.properties
 COPY zookeeper/default-setenv-zookeeper.sh /root/.zookeeper/default-setenv-zookeeper.sh
 COPY zookeeper/crontab /etc/crontab
 
