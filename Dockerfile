@@ -116,6 +116,7 @@ COPY start-wiremock-server.sh /usr/local/bin/start-wiremock-server
 COPY stop-wiremock-server.sh /usr/local/bin/stop-wiremock-server
 COPY status-wiremock-server.sh /usr/local/bin/status-wiremock-server
 COPY head-wiremock.sh /usr/local/bin/head-wiremock
+COPY set-job-wiremock.sh /usr/local/bin/set-crontab-job
 
 ADD zookeeper/zookeeper.cfg.standalone.template $ZOOKEEPER_HOME/conf/zoo.cfg.standalone.template
 ADD zookeeper/zookeeper.cfg.replica.template $ZOOKEEPER_HOME/conf/zoo.cfg.replica.template
@@ -138,7 +139,8 @@ COPY zookeeper/crontab /etc/crontab
 RUN chmod 777 /docker-start-wiremock.sh \
     && chmod 777 /docker-entrypoint.sh \
     && chmod 777 /usr/local/bin/*-wiremock* \
-    && chmod +x /usr/local/bin/*zookeeper \
+    && chmod 777 /usr/local/bin/*zookeeper \
+    && chmod 777 /usr/local/bin/set-crontab-job \
     && chmod 644 /etc/crontab
 
 VOLUME ["/wiremock/mappings", "/wiremock/__files", "/wiremock/certificates", "/var/local/zookeeper", "/var/local/zookeeper-logs", "/var/local/zookeeper-ssl"]

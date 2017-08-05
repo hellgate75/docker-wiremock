@@ -10,48 +10,6 @@ function download_file() {
   fi
 }
 
-function set_crontab_task() {
-  CRON_MINS="$1"
-  CRON_HOUR="$2"
-  if [[ "" == "$CRON_MINS" ]]; then
-    if [[ -z "$CRON_HOUR" ]]; then
-      CRON_MINS=15
-    else
-      CRON_MINS="*"
-    fi
-  fi
-  if [[ "" == "$CRON_HOUR" ]]; then
-    if [[ -z "$CRON_MINS" ]]; then
-      CRON_MINS=15
-    else
-      CRON_HOUR="*"
-    fi
-  fi
-  if ! [[ -z "$(cat $CRON_MINS | grep ',')" ]]; then
-    for minute in ${CRON_MINS//,/ }; do
-      if ! [[ -z "$(cat $CRON_HOUR | grep ',')" ]]; then
-        for hour in ${CRON_HOUR//,/ }; do
-          echo "$minute $hour	* * *	$3    $4" >> /etc/crontab
-        done
-      else
-        echo "$minute $CRON_HOUR	* * *	$3    $4" >> /etc/crontab
-      fi
-    done
-  else
-    if ! [[ -z "$(cat $CRON_HOUR | grep ',')" ]]; then
-      for hour in ${CRON_HOUR//,/ }; do
-        echo "$CRON_MINS $hour	* * *	$3    $4" >> /etc/crontab
-      done
-    else
-      echo "$CRON_MINS $CRON_HOUR	* * *	$3    $4" >> /etc/crontab
-    fi
-  fi
-  echo "$CRON_MINS $CRON_HOUR	* * *	$3    $4" >> /etc/crontab
-  if ! [[ -e /var/spool/cron/crontabs/root  ]]; then
-    ln -s /etc/crontab /var/spool/cron/crontabs/root
-  fi
-}
-
 . setenv-zookeeper
 
 ZOOKERPER_ACTIVE="$(ps -eaf | grep java | grep zookeeper)"
@@ -75,17 +33,17 @@ fi
 if [[ "yes" == "$ZOOKEEPER_CLIENT_SERVICE" ]]; then
 
   if ! [[ -e /root/.configure-zookeeper-client  ]]; then
-    set_crontab_task $ZOOKEEPER_SEEK_INTERVAL_MIN $ZOOKEEPER_SEEK_INTERVAL_HOUR "root" "seek-zookeeper"
+    set-crontab-job ${ZOOKEEPER_SEEK_INTERVAL_MIN:-"*"} ${ZOOKEEPER_SEEK_INTERVAL_HOUR:-"*"} "root" "seek-zookeeper"
     touch /root/.configure-zookeeper-client
   fi
   if [[ "yes" == "$LOG_ON_ZOOKEEPER" ]]; then
     if ! [[ -e /root/.configure-zookeeper-log  ]]; then
-      set_crontab_task $ZOOKEEPER_LOG_INTERVAL_MIN $ZOOKEEPER_LOG_INTERVAL_HOUR "root" "log-zookeeper"
+      set-crontab-job ${ZOOKEEPER_LOG_INTERVAL_MIN:-"*"} ${ZOOKEEPER_LOG_INTERVAL_HOUR:-"*"} "root" "log-zookeeper"
       touch /root/.configure-zookeeper-log
     fi
   fi
 
-  service cron start
+  service cron start*
 
   if [[ "yes" == "$ZOOKEEPER_SERVER_SERVICE" ]]; then
     if [[ -z "$ZOOKERPER_ACTIVE" ]]; then
