@@ -101,7 +101,6 @@ Apache™ Zookeper Commands REST interface port
 Apache™ Zookeper no-SSL port
 
 * `2182`:
-
 Apache™ Zookeper SSL port
 
 
