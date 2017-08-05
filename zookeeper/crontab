@@ -4,7 +4,7 @@
 # and files in /etc/cron.d. These files also have username fields,
 # that none of the other crontabs do.
 
-SHELL=/bin/sh
+SHELL=/bin/bash
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/usr/lib/zookeeper/bin
 
 # m h dom mon dow user	command

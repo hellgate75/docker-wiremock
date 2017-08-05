@@ -27,8 +27,29 @@ function set_crontab_task() {
       CRON_HOUR="*"
     fi
   fi
+  if ! [[ -z "$(cat $CRON_MINS | grep ',')" ]]; then
+    for minute in ${CRON_MINS//,/ }; do
+      if ! [[ -z "$(cat $CRON_HOUR | grep ',')" ]]; then
+        for hour in ${CRON_HOUR//,/ }; do
+          echo "$minute $hour	* * *	$3    $4" >> /etc/crontab
+        done
+      else
+        echo "$minute $CRON_HOUR	* * *	$3    $4" >> /etc/crontab
+      fi
+    done
+  else
+    if ! [[ -z "$(cat $CRON_HOUR | grep ',')" ]]; then
+      for hour in ${CRON_HOUR//,/ }; do
+        echo "$CRON_MINS $hour	* * *	$3    $4" >> /etc/crontab
+      done
+    else
+      echo "$CRON_MINS $CRON_HOUR	* * *	$3    $4" >> /etc/crontab
+    fi
+  fi
   echo "$CRON_MINS $CRON_HOUR	* * *	$3    $4" >> /etc/crontab
-
+  if ! [[ -e /var/spool/cron/crontabs/root  ]]; then
+    ln -s /etc/crontab /var/spool/cron/crontabs/root
+  fi
 }
 
 . setenv-zookeeper
