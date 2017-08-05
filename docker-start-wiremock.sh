@@ -27,23 +27,41 @@ if ! [[ -z "$WIREMOCK_ZOOKEEPER_INTEGRATION_SCRIPT_URL" ]]; then
     echo "Error [$URL_EXIT_CODE] retrieving integration script from URL : $WIREMOCK_ZOOKEEPER_INTEGRATION_SCRIPT_URL"
   fi
 fi
-
-. custom-setenv-zookeeper
+source $(which setenv-zookeeper)
+source $(which custom-setenv-zookeeper)
 
 if [[ "yes" == "$ZOOKEEPER_CLIENT_SERVICE" ]]; then
 
   if ! [[ -e /root/.configure-zookeeper-client  ]]; then
-    set-crontab-job ${ZOOKEEPER_SEEK_INTERVAL_MIN:-"*"} ${ZOOKEEPER_SEEK_INTERVAL_HOUR:-"*"} "root" "seek-zookeeper"
+    TIME_MM="$ZOOKEEPER_SEEK_INTERVAL_MIN"
+    TIME_HH="$ZOOKEEPER_SEEK_INTERVAL_HOUR"
+    if [[ -z "$TIME_MM" ]]; then
+      TIME_MM="*"
+    fi
+    if [[ -z "$TIME_HH" ]]; then
+      TIME_HH="*"
+    fi
+    echo "Installing Seeker Job at every MM=$TIME_MM, HH=$TIME_HH"
+    set-crontab-job "$TIME_MM" "$TIME_HH" "root" "seek-zookeeper"
     touch /root/.configure-zookeeper-client
   fi
   if [[ "yes" == "$LOG_ON_ZOOKEEPER" ]]; then
     if ! [[ -e /root/.configure-zookeeper-log  ]]; then
-      set-crontab-job ${ZOOKEEPER_LOG_INTERVAL_MIN:-"*"} ${ZOOKEEPER_LOG_INTERVAL_HOUR:-"*"} "root" "log-zookeeper"
+      TIME_MM="$ZOOKEEPER_LOG_INTERVAL_MIN"
+      TIME_HH="$ZOOKEEPER_LOG_INTERVAL_HOUR"
+      if [[ -z "$TIME_MM" ]]; then
+        TIME_MM="*"
+      fi
+      if [[ -z "$TIME_HH" ]]; then
+        TIME_HH="*"
+      fi
+      echo "Installing Logger Job at every MM=$TIME_MM, HH=$TIME_HH"
+      set-crontab-job "$TIME_MM" "$TIME_HH" "root" "log-zookeeper"
       touch /root/.configure-zookeeper-log
     fi
   fi
 
-  service cron start*
+  service cron start
 
   if [[ "yes" == "$ZOOKEEPER_SERVER_SERVICE" ]]; then
     if [[ -z "$ZOOKERPER_ACTIVE" ]]; then
