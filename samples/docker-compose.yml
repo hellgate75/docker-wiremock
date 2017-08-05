@@ -6,61 +6,56 @@ services:
     image: wiremock-server
     container_name: wiremock-server
     volumes:
-      - "/wiremock/mappings", "/wiremock/__files", "/wiremock/certificates", "/var/local/zookeeper", "/var/local/zookeeper-logs", "/var/local/zookeeper-ssl"
-      - master-data:/aptly
-      - master-nginx:/etc/ngnix
+      - wiremock-mappings:/wiremock/mappings
+      - wiremock-files:/wiremock/__files
+      - wiremock-certificates:/wiremock/certificates
+      - wiremock-zoo-data:/var/local/zookeeper
+      - wiremock-zoo-logs:/var/local/zookeeper-logs
+      - wiremock-zoo-certs:/var/local/zookeeper-ssl
     ports:
       - 9999:9999
     networks:
-      debian-network:
-      debian-seekers:
+      wiremock-network:
         aliases:
-          - debian-srv1
+          - wiremock-server
+    links:
+      - "zookeeper-server:zookeeper-master"
     environment:
-      - "REPO_NAME=debian-personal"
-      - "REPO_PORT=9999"
-      - "DISTRIBUTION=trusty"
-      - "COMPONENTS=main"
-      - "ARCHITECTURES=amd64"
+      - "ZOOKEEPER_CONFIGURATION_DATA_TARGZ_URL=https://github.com/hellgate75/docker-wiremock/raw/master/samples/zookeeper-config-data.tgz"
+      - "WIREMOCK_ZOOKEEPER_INTEGRATION_SCRIPT_URL=https://raw.githubusercontent.com/hellgate75/docker-wiremock/master/samples/autoconfig-zookeeper-compose.sh"
     cap_add:
       - ALL
     cap_drop:
       - NET_ADMIN
       - SYS_ADMIN
   zookeeper-server:
-    image: zookeeper
+    image: hellgate75/zookeeper:3.5.3-beta
     container_name: zookeeper-server
     volumes:
-      - slave-data:/aptly
-    links:
-      - "debian-master:debian-repo"
+      - zookeeper-data:/var/local/zookeeper
+      - zookeeper-logs:/var/local/zookeeper-logs
+      - zookeeper-certs:/var/local/zookeeper-ssl
     environment:
-      - "DEB_REPO_NAME=debian-personal"
-      - "REPO_PORT=9999"
-      - "REPO_ADDRESS=debian-repo"
-      - "MIRROR_REPO_NAME=remote-debian"
-      - "DISTRIBUTION=trusty"
-      - "COMPONENTS=main"
-      - "ARCHITECTURES=amd64"
+      - "ZOOKEEPER_CONFIGURATION_DATA_TARGZ_URL=https://github.com/hellgate75/docker-wiremock/raw/master/samples/zookeeper-config-data.tgz"
     cap_add:
       - ALL
     cap_drop:
       - NET_ADMIN
       - SYS_ADMIN
     networks:
-      debian-network:
-      debian-pushers:
+      wiremock-network:
         aliases:
-          - debian-worker1
+          - zookeeper-master
 networks:
-  debian-network:
+  wiremock-network:
     #this should be an overlay network of a swarm cluster
-  debian-seekers:
-    #this should be an external network on some specific app domain for pulling from repo
-  debian-pushers:
-      #this should be an external network on some specific app domain to run jobs on the client machine and push to repo
 volumes:
   wiremock-mappings:
   wiremock-files:
   wiremock-certificates:
-  slave-data:
+  wiremock-zoo-data:
+  wiremock-zoo-logs:
+  wiremock-zoo-certs:
+  zookeeper-data:
+  zookeeper-logs:
+  zookeeper-certs:

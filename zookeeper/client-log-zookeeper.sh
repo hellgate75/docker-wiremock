@@ -5,7 +5,5 @@ function system_log() {
   echo "[$(date)] $1" >> /var/log/zookeeper/logging-client.log
 }
 system_log "Zookepeer Logging Client running ..."
-zkCli.sh create $CURRENT_SERVER_PATH
-zkCli.sh set $CURRENT_SERVER_PATH "$(date)"
-zkCli.sh create $CURRENT_SERVER_PATH/$CURRENT_SERVER_ID
-zkCli.sh set $CURRENT_SERVER_PATH/$CURRENT_SERVER_ID "$(date)"
+set-node-zookeeper set $CURRENT_SERVER_PATH "$(date)" $ZOOKEEPER_SERVER_ADDRESS
+set-node-zookeeper set $CURRENT_SERVER_PATH/$CURRENT_SERVER_ID "$(date)" $ZOOKEEPER_SERVER_ADDRESS

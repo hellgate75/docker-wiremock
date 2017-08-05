@@ -55,6 +55,7 @@ Additionaly we have provided following configuration environment variable :
 * `WIREMOCK_ZOOKEEPER_INTEGRATION_SCRIPT_URL` : Remote bash script Url, cotaining environment variables, downloaded and executed before container start-up (default: )
 * `ZOOKEEPER_CLIENT_SERVICE` : [yes/no] Execute Apache™ Zookeper Client Service on container start-up (default: no)
 * `ZOOKEEPER_SERVER_SERVICE` : [yes/no] Execute Apache™ Zookeper Server Service on container start-up, if Apache™ Zookeper Client Service is enabled (default: no)
+* `ZOOKEEPER_SERVER_ADDRESS` : Remote/Local zookeeper address/port for client configuration operations [e.g.: my-server:2181] (default: "localhost:2181")
 * `WIREMOCK_SERVICE_PATH` : Full Apache™ Zookeper WireMock™ service configuration base path (default: )
 * `WIREMOCK_ARTIFACT_URL_ENTRY` : Remote Apache™ Zookeper WireMock™ remote mappings artifact tar gz archive Url entry (default: )
 * `WIREMOCK_STATIC_URL_ENTRY` : Remote Apache™ Zookeper WireMock™ remote mappings artifact tar gz archive Url entry (default: )
@@ -165,7 +166,21 @@ Docker container defines following environment variables:
 
 Here some samples :
 
-* Static file [index.html](https://github.com/hellgate75/docker-wiremock/tree/master/files/index.html)
+* Static HTML homepage file [index.html](https://github.com/hellgate75/docker-wiremock/tree/master/files/index.html)
+* Remote Apache™ ZooKeeper Configuration file :  [zookeeper-standalone.cfg](https://github.com/hellgate75/docker-wiremock/tree/master/samples/zookeeper-standalone.cfg)
+* Remote Apache™ ZooKeeper Configuration bash script :  [autoconfig-zookeeper-client.sh](https://github.com/hellgate75/docker-wiremock/tree/master/samples/autoconfig-zookeeper-client.sh)
+* Remote Apache™ ZooKeeper Docker-Compose Configuration bash script :  [autoconfig-zookeeper-compose.sh](https://github.com/hellgate75/docker-wiremock/tree/master/samples/autoconfig-zookeeper-compose.sh)
+* Remote Apache™ ZooKeeper Wiremock™ sample [docker compose](https://github.com/hellgate75/docker-wiremock/tree/master/samples/docker-compose.yml)
+* Zookeeper Configuration [sample data](https://github.com/hellgate75/docker-wiremock/tree/master/zookeeper/sample-data)
+
+
+### Expensions
+
+This docker image extends following docker images :
+
+* Apache™ ZooKeeper Docker Image [Git Hub](https://github.com/hellgate75/zookeeper), [Docker Hub](https://hub.docker.com/r/hellgate75/zookeeper)
+
+Almost all properties, configuration environment variables and functions have been migrated to current docker image. If you want know more about available features, please, take a look to dependant projects.
 
 
 ### Build Docker image
@@ -220,6 +235,17 @@ or
 
 http://[ container-ip or localhost ]:443/
 ```
+
+You can test APIs calling Web Methods from base http root, reported in previous example.
+
+
+### Test Docker Image features
+
+This docker image can work as stand-alone Wiremock server or sharing responsabilities with other ones. Zookeeper integration can work in client, client-server or client-server-replication mode (see [Apache™ ZooKeeper Docker Image project](https://github.com/hellgate75/zookeeper) for more information).
+
+* Sample [docker compose](https://github.com/hellgate75/docker-wiremock/tree/master/samples/docker-compose.yml) : This compose spin up a Wiremock™ Server with Apache™ ZooKeeper client integration and a master Apache™ ZooKeeper Server, connected one each other, and auto-loading configuration from remote repository files. Apache™ ZooKeeper Client System updates continuously configuration and any Wiremock™ Server features, loading configuration from Apache™ ZooKeeper Server, seekeing for changes and applying diff of configuration on any configuration version change.
+
+Testing application you can load defaut http page as reported in `Access Docker container features` README section.
 
 
 ### Issues

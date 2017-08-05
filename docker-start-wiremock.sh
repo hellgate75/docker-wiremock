@@ -27,7 +27,7 @@ function set_crontab_task() {
       CRON_HOUR="*"
     fi
   fi
-  echo "$CRON_MINS $CRON_HOUR	* * *	$3    $4" >> etc/crontab
+  echo "$CRON_MINS $CRON_HOUR	* * *	$3    $4" >> /etc/crontab
 
 }
 
