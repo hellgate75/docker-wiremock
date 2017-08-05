@@ -1,4 +1,4 @@
-<p align="center"><img src="https://github.com/hellgate75/docker-wiremock/raw/master/images/wiremock-logo.png" width="241"  height="110" /> &nbsp;&nbsp;<img src="https://github.com/hellgate75/docker-wiremock/raw/master/images/zookeper-logo.png" width="64"  height="110" /></p>
+<p align="center"><img src="https://github.com/hellgate75/docker-wiremock/raw/2.7.1/images/wiremock-logo.png" width="241"  height="110" /> &nbsp;&nbsp;<img src="https://github.com/hellgate75/docker-wiremock/raw/2.7.1/images/zookeper-logo.png" width="64"  height="110" /></p>
 
 ## Docker Image for Wiremock™ Server
 
@@ -10,6 +10,15 @@ This Docker Image prepare to run a Wiremock™ Server, useful to develop contrac
 WireMock™ is a simulator for HTTP-based APIs. Some might consider it a service virtualization tool or a mock server.
 
 It enables you to stay productive when an API you depend on doesn't exist or isn't complete. It supports testing of edge cases and failure modes that the real API won't reliably produce. And because it's fast it can reduce your build time from hours down to minutes.
+
+
+### Docker versions
+
+
+Wiremock™ Server docker version on Docker Hub are :
+
+* [Wiremock™ Server latest](https://github.com/hellgate75/docker-wiremock/tree/master/Dockerfile)
+* [Wiremock™ Server 2.7.1](https://github.com/hellgate75/docker-wiremock/tree/2.7.1/Dockerfile)
 
 
 ### Goals
@@ -166,12 +175,12 @@ Docker container defines following environment variables:
 
 Here some samples :
 
-* Static HTML homepage file [index.html](https://github.com/hellgate75/docker-wiremock/tree/master/files/index.html)
-* Remote Apache™ ZooKeeper Configuration file :  [zookeeper-standalone.cfg](https://github.com/hellgate75/docker-wiremock/tree/master/samples/zookeeper-standalone.cfg)
-* Remote Apache™ ZooKeeper Configuration bash script :  [autoconfig-zookeeper-client.sh](https://github.com/hellgate75/docker-wiremock/tree/master/samples/autoconfig-zookeeper-client.sh)
-* Remote Apache™ ZooKeeper Docker-Compose Configuration bash script :  [autoconfig-zookeeper-compose.sh](https://github.com/hellgate75/docker-wiremock/tree/master/samples/autoconfig-zookeeper-compose.sh)
-* Remote Apache™ ZooKeeper Wiremock™ sample [docker compose](https://github.com/hellgate75/docker-wiremock/tree/master/samples/docker-compose.yml)
-* Zookeeper Configuration [sample data](https://github.com/hellgate75/docker-wiremock/tree/master/zookeeper/sample-data)
+* Static HTML homepage file [index.html](https://github.com/hellgate75/docker-wiremock/tree/2.7.1/files/index.html)
+* Remote Apache™ ZooKeeper Configuration file :  [zookeeper-standalone.cfg](https://github.com/hellgate75/docker-wiremock/tree/2.7.1/samples/zookeeper-standalone.cfg)
+* Remote Apache™ ZooKeeper Configuration bash script :  [autoconfig-zookeeper-client.sh](https://github.com/hellgate75/docker-wiremock/tree/2.7.1/samples/autoconfig-zookeeper-client.sh)
+* Remote Apache™ ZooKeeper Docker-Compose Configuration bash script :  [autoconfig-zookeeper-compose.sh](https://github.com/hellgate75/docker-wiremock/tree/2.7.1/samples/autoconfig-zookeeper-compose.sh)
+* Remote Apache™ ZooKeeper Wiremock™ sample [docker compose](https://github.com/hellgate75/docker-wiremock/tree/2.7.1/samples/docker-compose.yml)
+* Zookeeper Configuration [sample data](https://github.com/hellgate75/docker-wiremock/tree/2.7.1/zookeeper/sample-data)
 
 
 ### Expensions
@@ -226,7 +235,7 @@ docker exec -it wiremock-server-2.7.1 bash
 When you login to container you will display service health information and console access urls
 
 
-In access to Wiremock™ Server [index.html](https://github.com/hellgate75/docker-wiremock/tree/master/files/index.html) in file folder you can type on your browser following address:
+In access to Wiremock™ Server [index.html](https://github.com/hellgate75/docker-wiremock/tree/2.7.1/files/index.html) in file folder you can type on your browser following address:
 
 ```bash
 http://[ container-ip or localhost ]:8080/
@@ -243,7 +252,7 @@ You can test APIs calling Web Methods from base http root, reported in previous 
 
 This docker image can work as stand-alone Wiremock server or sharing responsabilities with other ones. Zookeeper integration can work in client, client-server or client-server-replication mode (see [Apache™ ZooKeeper Docker Image project](https://github.com/hellgate75/zookeeper) for more information).
 
-* Sample [docker compose](https://github.com/hellgate75/docker-wiremock/tree/master/samples/docker-compose.yml) : This compose spin up a Wiremock™ Server with Apache™ ZooKeeper client integration and a master Apache™ ZooKeeper Server, connected one each other, and auto-loading configuration from remote repository files. Apache™ ZooKeeper Client System updates continuously configuration and any Wiremock™ Server features, loading configuration from Apache™ ZooKeeper Server, seekeing for changes and applying diff of configuration on any configuration version change.
+* Sample [docker compose](https://github.com/hellgate75/docker-wiremock/tree/2.7.1/samples/docker-compose.yml) : This compose spin up a Wiremock™ Server with Apache™ ZooKeeper client integration and a master Apache™ ZooKeeper Server, connected one each other, and auto-loading configuration from remote repository files. Apache™ ZooKeeper Client System updates continuously configuration and any Wiremock™ Server features, loading configuration from Apache™ ZooKeeper Server, seekeing for changes and applying diff of configuration on any configuration version change.
 
 Testing application you can load defaut http page as reported in `Access Docker container features` README section.
 
@@ -267,4 +276,4 @@ Please report any issue on project Issue Tracker at :
 
 ### LICENSE
 
-[LGPL v.3](https://github.com/hellgate75/docker-wiremock/tree/master/LICENSE)
+[LGPL v.3](https://github.com/hellgate75/docker-wiremock/tree/2.7.1/LICENSE)
