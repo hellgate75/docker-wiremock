@@ -127,10 +127,10 @@ Docker container defines following environment variables:
 
 *Infrastructure configuration*:
 
-* `WM_CONFIGURATION_SCRIPT_URL`: Url referring to Ubuntu bash script, defining variables and base actions, executed before Wiremock™ Server start up (default : )
-* `WM_CERTIFICATE_TAR_GZ_URL`: Url referring to tar gz format file, containing SSL certificate files, installed in the system before Wiremock™ Server start up (default : )
-* `WM_MAPPINGS_TAR_GZ_URL`: Url referring to tar gz format file, containing mapping files, installed in the system before Wiremock™ Server start up (default : )
-* `WM_STATIC_FILES_TAR_GZ_URL`: Url referring to tar gz format file, containing static files, installed in the system before Wiremock™ Server start up (default : )
+* `WM_CONFIGURATION_SCRIPT_URL`: Url to Ubuntu bash script, defining variables and base actions, executed before Wiremock™ Server start up (default : )
+* `WM_CERTIFICATE_TAR_GZ_URL`: Url to tar gz format file, containing SSL certificate files, installed in the system before Wiremock™ Server start up (default : )
+* `WM_MAPPINGS_TAR_GZ_URL`: Url to tar gz format file, containing mapping files, installed in the system before Wiremock™ Server start up (default : )
+* `WM_STATIC_FILES_TAR_GZ_URL`: Url to tar gz format file, containing static files, installed in the system before Wiremock™ Server start up (default : )
 
 *Fine grained settings*:
 
@@ -246,6 +246,16 @@ This docker image can work as stand-alone Wiremock server or sharing responsabil
 * Sample [docker compose](https://github.com/hellgate75/docker-wiremock/tree/master/samples/docker-compose.yml) : This compose spin up a Wiremock™ Server with Apache™ ZooKeeper client integration and a master Apache™ ZooKeeper Server, connected one each other, and auto-loading configuration from remote repository files. Apache™ ZooKeeper Client System updates continuously configuration and any Wiremock™ Server features, loading configuration from Apache™ ZooKeeper Server, seekeing for changes and applying diff of configuration on any configuration version change.
 
 Testing application you can load defaut http page as reported in `Access Docker container features` README section.
+
+
+### Docker container logging
+
+Current Docker image logging is available at :
+
+* Wiremock™ Server log file : /var/log/wiremock/server.log
+* Apache™ ZooKeeper log folder : /usr/lib/zookeeper/logs
+* Apache™ ZooKeeper Client Config log file : /var/log/zookeeper/seek-config-client.log
+* Apache™ ZooKeeper Logging Client log file : /var/log/zookeeper/logging-client.log
 
 
 ### Issues

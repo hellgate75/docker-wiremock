@@ -3,7 +3,7 @@ version: '3.2'
 services:
   wiremock-server:
     build:
-    image: wiremock-server
+    image: hellgate75/wiremock-server
     container_name: wiremock-server
     volumes:
       - wiremock-mappings:/wiremock/mappings
