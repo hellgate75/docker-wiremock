@@ -149,4 +149,4 @@ CMD /docker-start-wiremock.sh
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
-EXPOSE 8080 443 8080 2181 2182
+EXPOSE 8080 443 8081 2181 2182

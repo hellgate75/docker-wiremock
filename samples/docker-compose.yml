@@ -12,7 +12,11 @@ services:
       - wiremock-zoo-logs:/var/local/zookeeper-logs
       - wiremock-zoo-certs:/var/local/zookeeper-ssl
     ports:
-      - 9999:9999
+      - 8080:8080
+      - 443:443
+      - 8081:8081
+      - 2183:2181
+      - 2184:2182
     networks:
       wiremock-network:
         aliases:
@@ -35,6 +39,10 @@ services:
       - zookeeper-certs:/var/local/zookeeper-ssl
     environment:
       - "ZOOKEEPER_CONFIGURATION_DATA_TARGZ_URL=https://github.com/hellgate75/docker-wiremock/raw/master/samples/zookeeper-sample-config-data.tgz"
+    ports:
+      - 8082:8080
+      - 2181:2181
+      - 2182:2182
     cap_add:
       - ALL
     cap_drop:
