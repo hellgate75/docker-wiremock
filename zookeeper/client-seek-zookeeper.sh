@@ -2,7 +2,7 @@
 
 function system_log() {
   mkdir -p /var/log/zookeeper
-  echo "[$(date)] $1" >> /var/log/zookeeper/seek-config-client.log
+  echo -e "[$(date)] $1\n" >> /var/log/zookeeper/seek-config-client.log
 }
 
 function download_file() {
