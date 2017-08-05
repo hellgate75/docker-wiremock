@@ -12,10 +12,10 @@ WireMock™ is a simulator for HTTP-based APIs. Some might consider it a service
 It enables you to stay productive when an API you depend on doesn't exist or isn't complete. It supports testing of edge cases and failure modes that the real API won't reliably produce. And because it's fast it can reduce your build time from hours down to minutes.
 
 
-### Docker versions
+### Wiremock™ Server versions
 
 
-Wiremock™ Server docker version on Docker Hub are :
+Wiremock™ Server available versions are :
 
 * [Wiremock™ Server latest](https://github.com/hellgate75/docker-wiremock/tree/master/Dockerfile)
 * [Wiremock™ Server 2.7.1](https://github.com/hellgate75/docker-wiremock/tree/2.7.1/Dockerfile)
