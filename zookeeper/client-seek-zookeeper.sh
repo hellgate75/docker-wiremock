@@ -1,6 +1,9 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-. /root/.bashrc
+set -ae
+
+. setenv-zookeeper
+. custom-setenv-zookeeper
 
 function system_log() {
   mkdir -p /var/log/zookeeper
@@ -19,6 +22,7 @@ function download_file() {
 
 
 system_log "Zookepeer Configuration Client running ..."
+system_log "Zookepeer Configuration Accessing to server at : $ZOOKEEPER_SERVER_ADDRESS"
 ENABLED="$(get-node-zookeeper /$WIREMOCK_SERVICE_PATH $ZOOKEEPER_SERVER_ADDRESS)"
 
 RESTART_WIREMOCK=0
