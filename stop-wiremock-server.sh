@@ -5,5 +5,5 @@ RUNNING="$(ps -eaf|grep java| grep 'wiremock-standalone'|grep -v grep|awk 'BEGIN
 if ! [[ -z "$RUNNING" ]]; then
   kill -9 $RUNNING
 else
-  "Wiremock Server NOT running ..."
+  echo "Wiremock Server NOT running ..."
 fi

@@ -21,10 +21,10 @@ function set_crontab_task() {
         TIME_BLOCKS=""
         export IFS=",";read -ra TIME_BLOCKS <<< "$CRON_HOUR"
         for hour in "${TIME_BLOCKS[@]}"; do
-          echo "$minute $hour	* * *	$3    $4" >> /var/spool/cron/crontabs/$3
+          echo "$minute $hour	* * *	$3    /bin/bash -c $4" >> /var/spool/cron/crontabs/$3
         done
       else
-        echo "$minute $CRON_HOUR	* * *	$3    $4" >> /var/spool/cron/crontabs/$3
+        echo "$minute $CRON_HOUR	* * *	$3    /bin/bash -c $4" >> /var/spool/cron/crontabs/$3
       fi
     done
   else
@@ -32,10 +32,10 @@ function set_crontab_task() {
       TIME_BLOCKS=""
       export IFS=",";read -ra TIME_BLOCKS <<< "$CRON_HOUR"
       for hour in "${TIME_BLOCKS[@]}"; do
-        echo "$CRON_MINS $hour	* * *	$3    $4" >> /var/spool/cron/crontabs/$3
+        echo "$CRON_MINS $hour	* * *	$3    /bin/bash -c $4" >> /var/spool/cron/crontabs/$3
       done
     else
-      echo "$CRON_MINS $CRON_HOUR	* * *	$3    $4" >> /var/spool/cron/crontabs/$3
+      echo "$CRON_MINS $CRON_HOUR	* * *	$3    /bin/bash -c $4" >> /var/spool/cron/crontabs/$3
     fi
   fi
 }
