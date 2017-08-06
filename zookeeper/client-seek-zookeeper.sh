@@ -19,6 +19,8 @@ function download_file() {
 system_log "Zookepeer Configuration Client running ..."
 ENABLED="$(get-node-zookeeper /$WIREMOCK_SERVICE_PATH $ZOOKEEPER_SERVER_ADDRESS)"
 
+RESTART_WIREMOCK=0
+
 if [[ "enabled" == "$ENABLED" ]]; then
   system_log "Remote Wiremock Server Configuration enabled ..."
   system_log "Recovering configuration from Apache Zookeeper Server : $ZOOKEEPER_SERVER_ADDRESS"
@@ -38,6 +40,7 @@ if [[ "enabled" == "$ENABLED" ]]; then
           if [[ "0" == "$?" ]]; then
             tar -xzf /root/artifact.tgz -C /wiremock/mappings
             rm -f /root/artifact.tgz
+            RESTART_WIREMOCK=1
             #Define procedure to apply artifacts archive
             system_log "$ARTIFACTS" > /root/.zookeeper/config-artifacts
           else
@@ -56,6 +59,7 @@ if [[ "enabled" == "$ENABLED" ]]; then
         system_log "Applying new static files : static html content"
         if ! [[ -z "$STATIC"  ]]; then
           download_file /root/static-files.tgz $STATIC
+          RESTART_WIREMOCK=1
           if [[ "0" == "$?" ]]; then
             tar -xzf /root/static-files.tgz -C /wiremock/__files
             rm -f /root/static-files.tgz
@@ -101,5 +105,9 @@ if [[ "enabled" == "$ENABLED" ]]; then
   fi
 else
   system_log "Remote Wiremock Server Configuration disabled [value: $ENABLED] ..."
+fi
+if [[ "1" == "$RESTART_WIREMOCK" ]]; then
+  stop-wiremock-server
+  start-wiremock-server
 fi
 system_log "Zookepeer Configuration Client complete!!"
