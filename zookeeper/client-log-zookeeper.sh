@@ -1,5 +1,5 @@
 #!/bin/bash
-
+. /root/.bashrc
 function system_log() {
   mkdir -p /var/log/zookeeper
   echo -e "[$(date)] $1\n" >> /var/log/zookeeper/logging-client.log
