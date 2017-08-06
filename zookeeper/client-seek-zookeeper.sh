@@ -126,6 +126,7 @@ else
 fi
 if [[ "1" == "$RESTART_WIREMOCK" ]]; then
   stop-wiremock-server
+  sleep 2
   start-wiremock-server
 fi
 system_log "Zookepeer Configuration Client complete!!"
