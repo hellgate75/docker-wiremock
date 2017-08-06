@@ -38,6 +38,9 @@ if [[ "enabled" == "$ENABLED" ]]; then
         if ! [[ -z "$ARTIFACTS"  ]]; then
           download_file /root/artifact.tgz $ARTIFACTS
           if [[ "0" == "$?" ]]; then
+            if ! [[ -z "$(ls /wiremock/mappings/)" ]]; then
+              rm -Rf /wiremock/mappings/*
+            fi
             tar -xzf /root/artifact.tgz -C /wiremock/mappings
             rm -f /root/artifact.tgz
             RESTART_WIREMOCK=1
@@ -61,6 +64,9 @@ if [[ "enabled" == "$ENABLED" ]]; then
           download_file /root/static-files.tgz $STATIC
           RESTART_WIREMOCK=1
           if [[ "0" == "$?" ]]; then
+            if ! [[ -z "$(ls /wiremock/__files/)" ]]; then
+              rm -Rf /wiremock/__files/*
+            fi
             tar -xzf /root/static-files.tgz -C /wiremock/__files
             rm -f /root/static-files.tgz
             #Define procedure to apply static files
@@ -84,7 +90,10 @@ if [[ "enabled" == "$ENABLED" ]]; then
           if [[ "0" == "$?" ]]; then
             tar -xzf /root/certificates.tgz -C /wiremock/certificates
             rm -f /root/certificates.tgz
-            #Define procedure to apply certificates
+            if ! [[ -z "$(ls /wiremock/certificates/)" ]]; then
+              echo "Copying wiremock certificates ..."
+              cp /wiremock/certificates/* /etc/ssl/certs/
+            fi            #Define procedure to apply certificates
             system_log "$SSL_CERTIFICATES" > /root/.zookeeper/config-certificates
           else
             system_log "Certificates not correctly downloaded from '$SSL_CERTIFICATES' in version : $VERSION"

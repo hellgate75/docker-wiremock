@@ -68,7 +68,7 @@ if ! [[ -e /root/.wiremock-default-static-files ]]; then
 fi
 
 if [[ -e /wiremock/certificates ]]; then
-  if [[ "" != "$(ls /wiremock/certificates/)" ]]; then
+  if ! [[ -z "$(ls /wiremock/certificates/)" ]]; then
     echo "Copying wiremock certificates ..."
     cp /wiremock/certificates/* /etc/ssl/certs/
   fi
