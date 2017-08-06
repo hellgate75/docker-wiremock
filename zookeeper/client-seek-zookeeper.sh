@@ -127,8 +127,7 @@ fi
 if [[ "1" == "$RESTART_WIREMOCK" ]]; then
   system_log "Restarting Wiremock Server, in order to apply new content ..."
   system_log "$(bash -c stop-wiremock-server)"
-  sleep 2
-  system_log "$(start-wiremock-server)"
+  system_log "$(bash -c start-wiremock-server)"
   system_log "Restarting Wiremock Server, cmpleted!!"
   system_log "Wiremock server status : $(/bin/bash -c status-wiremock-server)"
 fi
