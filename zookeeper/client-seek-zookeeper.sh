@@ -88,6 +88,9 @@ if [[ "enabled" == "$ENABLED" ]]; then
         if ! [[ -z "$SSL_CERTIFICATES"  ]]; then
           download_file /root/certificates.tgz $SSL_CERTIFICATES
           if [[ "0" == "$?" ]]; then
+            if ! [[ -z "$(ls /wiremock/certificates/)" ]]; then
+              rm -Rf /wiremock/certificates/*
+            fi
             tar -xzf /root/certificates.tgz -C /wiremock/certificates
             rm -f /root/certificates.tgz
             if ! [[ -z "$(ls /wiremock/certificates/)" ]]; then
