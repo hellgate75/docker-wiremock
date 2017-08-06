@@ -107,7 +107,6 @@ RUN curl -sSL http://www-eu.apache.org/dist/zookeeper/zookeeper-$ZOOKEEPER_RELEA
     && echo "head-zookeeper" >> /root/.bashrc \
     && echo "head-wiremock" >> /root/.bashrc \
     && echo ". setenv-zookeeper" >> /root/.bashrc \
-    && echo ". setenv-zookeeper" >> /root/.bashrc \
     && echo ". custom-setenv-zookeeper" >> /root/.bashrc
 
 COPY docker-entrypoint.sh /docker-entrypoint.sh
@@ -117,6 +116,9 @@ COPY stop-wiremock-server.sh /usr/local/bin/stop-wiremock-server
 COPY status-wiremock-server.sh /usr/local/bin/status-wiremock-server
 COPY head-wiremock.sh /usr/local/bin/head-wiremock
 COPY set-job-wiremock.sh /usr/local/bin/set-crontab-job
+COPY dump-env.sh /usr/local/bin/dump-env
+COPY init.wiremock.sh /etc/init.d/wiremock
+COPY default.wiremock.sh /etc/default/wiremock
 
 ADD zookeeper/zookeeper.cfg.standalone.template $ZOOKEEPER_HOME/conf/zoo.cfg.standalone.template
 ADD zookeeper/zookeeper.cfg.replica.template $ZOOKEEPER_HOME/conf/zoo.cfg.replica.template
@@ -142,7 +144,10 @@ RUN chmod 777 /docker-start-wiremock.sh \
     && chmod 777 /usr/local/bin/*-wiremock* \
     && chmod 777 /usr/local/bin/*zookeeper \
     && chmod 777 /usr/local/bin/set-crontab-job \
-    && chmod 644 /etc/crontab
+    && chmod 644 /etc/crontab \
+    && chmod 777 /usr/local/bin/dump-env \
+    && chmod 777 /etc/init.d/wiremock \
+    && chmod 777 /etc/default/wiremock
 
 VOLUME ["/wiremock/mappings", "/wiremock/__files", "/wiremock/certificates", "/var/local/zookeeper", "/var/local/zookeeper-logs", "/var/local/zookeeper-ssl"]
 
