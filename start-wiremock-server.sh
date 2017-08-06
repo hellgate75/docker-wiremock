@@ -2,6 +2,10 @@
 
 RUNNING="$(ps -eaf|grep java| grep 'wiremock-standalone'|grep -v grep)"
 
+source /root/.wiremock/.env
+source /usr/local/bin/setenv-zookeeper
+source /usr/local/bin/custom-setenv-zookeeper
+
 function download_file() {
   if [[ -z "$(echo $2|grep -i 'https://')" ]]; then
     curl -L -o $1 $2
@@ -14,7 +18,7 @@ function download_file() {
 
 if ! [[ -z "$RUNNING" ]]; then
   echo "Wiremock Server already running ..."
-  exit 0
+  exit 1
 fi
 
 if ! [[ -z "$WM_CONFIGURATION_SCRIPT_URL" ]]; then
@@ -185,4 +189,6 @@ mkdir -p /var/log/wiremock
 
 cd /wiremock
 
-nohup java -cp body-transformer.jar:wiremock-standalone.jar:httpcomponents-client-$WM_HTTP_CC_VERSION/lib/* com.github.tomakehurst.wiremock.standalone.WireMockServerRunner$WM_ARGS >> /var/log/wiremock/server.log &
+nohup /bin/bash -c "java -cp body-transformer.jar:wiremock-standalone.jar:httpcomponents-client-$WM_HTTP_CC_VERSION/lib/* com.github.tomakehurst.wiremock.standalone.WireMockServerRunner$WM_ARGS &> /var/log/wiremock/server.log" &
+
+exit 0

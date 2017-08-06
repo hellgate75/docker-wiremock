@@ -10,7 +10,7 @@ function download_file() {
   fi
 }
 
-. setenv-zookeeper
+source $(which setenv-zookeeper)
 
 ZOOKERPER_ACTIVE="$(ps -eaf | grep java | grep zookeeper)"
 
@@ -27,6 +27,7 @@ if ! [[ -z "$WIREMOCK_ZOOKEEPER_INTEGRATION_SCRIPT_URL" ]]; then
     echo "Error [$URL_EXIT_CODE] retrieving integration script from URL : $WIREMOCK_ZOOKEEPER_INTEGRATION_SCRIPT_URL"
   fi
 fi
+
 source $(which setenv-zookeeper)
 source $(which custom-setenv-zookeeper)
 
@@ -74,13 +75,6 @@ if [[ "yes" == "$ZOOKEEPER_CLIENT_SERVICE" ]]; then
   fi
 fi
 
-
-start-wiremock-server
-
-sleep 1
-
-head-wiremock
-
 if [[ "yes" == "$ZOOKEEPER_CLIENT_SERVICE" ]]; then
   if [[ "yes" == "$ZOOKEEPER_SERVER_SERVICE" ]]; then
     if [[ -z "$ZOOKERPER_ACTIVE" ]]; then
@@ -91,9 +85,15 @@ if [[ "yes" == "$ZOOKEEPER_CLIENT_SERVICE" ]]; then
       head-zookeeper
     fi
   fi
-  ##check and Plan chrontab for client operation
 fi
 
+dump-env
+
+service wiremock start
+
+sleep 1
+
+head-wiremock
 
 echo "Logging wiremock ..."
 tail -f /var/log/wiremock/server.log
