@@ -25,6 +25,7 @@ services:
       - "zookeeper-server:zookeeper-master"
     environment:
       - "ZOOKEEPER_SERVER_ADDRESS=zookeeper-master:2181"
+      - "WM_STATIC_FILES_TAR_GZ_URL=https://raw.githubusercontent.com/hellgate75/docker-wiremock/master/samples/default-static-files.tgz"
       - "WIREMOCK_ZOOKEEPER_INTEGRATION_SCRIPT_URL=https://raw.githubusercontent.com/hellgate75/docker-wiremock/master/samples/autoconfig-zookeeper-compose.sh"
     cap_add:
       - ALL

@@ -262,7 +262,7 @@ This docker image can work as stand-alone Wiremock server or sharing responsabil
 
 * Sample [docker compose](https://github.com/hellgate75/docker-wiremock/tree/2.7.1/samples/docker-compose.yml) : This compose spin up a Wiremock™ Server with Apache™ ZooKeeper client integration and a master Apache™ ZooKeeper Server, connected one each other, and auto-loading configuration from remote repository files. Apache™ ZooKeeper Client System updates continuously configuration and any Wiremock™ Server features, loading configuration from Apache™ ZooKeeper Server, seekeing for changes and applying diff of configuration on any configuration version change.
 
-Testing application you can load defaut http page as reported in `Access Docker container features` README section.
+Testing application you can load defaut http page as reported in `Access Docker container features` README section. In order to check updates on Wiremock™ Server content on http web console, you have  to wait next client configuration update, happening every 10 minutes (eg.: 10.10, 10.20, and so on ...).
 
 
 ### Docker container logging

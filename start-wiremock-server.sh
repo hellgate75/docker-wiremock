@@ -22,36 +22,48 @@ if ! [[ -z "$WM_CONFIGURATION_SCRIPT_URL" ]]; then
   download_file /wiremock/environment.sh $WM_CONFIGURATION_SCRIPT_URL
 fi
 
-if ! [[ -z "$WM_CERTIFICATE_TAR_GZ_URL" ]]; then
-  echo "Downloading Wiremock Server certificates tar gz file from URL : $WM_CERTIFICATE_TAR_GZ_URL"
-  download_file /wiremock/certificates.tgz $WM_CERTIFICATE_TAR_GZ_URL
-  if [[ -e /wiremock/certificates.tgz ]]; then
-    echo "Extracting Wiremock Server certificates from file ..."
-    tar -C /wiremock/certificates -xzf /wiremock/certificates.tgz
-  else
-    echo "Unable to download Wiremock Server certificates from URL : $WM_CERTIFICATE_TAR_GZ_URL"
+if ! [[ -e /root/.wiremock-default-certificates ]]; then
+  if ! [[ -z "$WM_CERTIFICATE_TAR_GZ_URL" ]]; then
+    echo "Downloading Wiremock Server certificates tar gz file from URL : $WM_CERTIFICATE_TAR_GZ_URL"
+    download_file /wiremock/cdefault-ertificates.tgz $WM_CERTIFICATE_TAR_GZ_URL
+    if [[ -e /wiremock/default-certificates.tgz ]]; then
+      echo "Extracting Wiremock Server certificates from file ..."
+      tar -C /wiremock/certificates -xzf /wiremock/default-certificates.tgz
+      rm -f /wiremock/default-certificates.tgz
+      touch /root/.wiremock-default-certificates
+    else
+      echo "Unable to download Wiremock Server certificates from URL : $WM_CERTIFICATE_TAR_GZ_URL"
+    fi
   fi
 fi
 
-if ! [[ -z "$WM_MAPPINGS_TAR_GZ_URL" ]]; then
-  echo "Downloading Wiremock Server mappings tar gz file from URL : $WM_MAPPINGS_TAR_GZ_URL"
-  download_file /wiremock/mappings.tgz $WM_MAPPINGS_TAR_GZ_URL
-  if [[ -e /wiremock/mappings.tgz ]]; then
-    echo "Extracting Wiremock Server mappings from file ..."
-    tar -C /wiremock/mappings -xzf /wiremock/mappings.tgz
-  else
-    echo "Unable to download Wiremock Server mappings from URL : $WM_MAPPINGS_TAR_GZ_URL"
+if ! [[ -e /root/.wiremock-default-mappings ]]; then
+  if ! [[ -z "$WM_MAPPINGS_TAR_GZ_URL" ]]; then
+    echo "Downloading Wiremock Server mappings tar gz file from URL : $WM_MAPPINGS_TAR_GZ_URL"
+    download_file /wiremock/default-mappings.tgz $WM_MAPPINGS_TAR_GZ_URL
+    if [[ -e /wiremock/default-mappings.tgz ]]; then
+      echo "Extracting Wiremock Server mappings from file ..."
+      tar -C /wiremock/mappings -xzf /wiremock/default-mappings.tgz
+      rm -f /wiremock/default-mappings.tgz
+      touch /root/.wiremock-default-mappings
+    else
+      echo "Unable to download Wiremock Server mappings from URL : $WM_MAPPINGS_TAR_GZ_URL"
+    fi
   fi
 fi
 
-if ! [[ -z "$WM_STATIC_FILES_TAR_GZ_URL" ]]; then
-  echo "Downloading Wiremock Server static files tar gz file from URL : $WM_STATIC_FILES_TAR_GZ_URL"
-  download_file /wiremock/static-content.tgz $WM_STATIC_FILES_TAR_GZ_URL
-  if [[ -e /wiremock/static-content.tgz ]]; then
-    echo "Extracting Wiremock Server static files from file ..."
-    tar -C /wiremock/__files -xzf /wiremock/static-content.tgz
-  else
-    echo "Unable to download Wiremock Server static files from URL : $WM_STATIC_FILES_TAR_GZ_URL"
+if ! [[ -e /root/.wiremock-default-static-files ]]; then
+  if ! [[ -z "$WM_STATIC_FILES_TAR_GZ_URL" ]]; then
+    echo "Downloading Wiremock Server static files tar gz file from URL : $WM_STATIC_FILES_TAR_GZ_URL"
+    download_file /wiremock/default-static-content.tgz $WM_STATIC_FILES_TAR_GZ_URL
+    if [[ -e /wiremock/default-static-content.tgz ]]; then
+      echo "Extracting Wiremock Server static files from file ..."
+      tar -C /wiremock/__files -xzf /wiremock/default-static-content.tgz
+      rm -f /wiremock/default-static-content.tgz
+      touch /root/.wiremock-default-static-files
+    else
+      echo "Unable to download Wiremock Server static files from URL : $WM_STATIC_FILES_TAR_GZ_URL"
+    fi
   fi
 fi
 
