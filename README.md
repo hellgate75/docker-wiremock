@@ -160,7 +160,7 @@ Docker container defines following environment variables:
 * `VM_PROXY_VIA`: When proxying requests (either by using `VM_PROXY_ALL` or by creating stub mappings that proxy to other hosts), route via another proxy server (useful when inside a corporate network that only permits internet access via an opaque proxy). e.g. "webproxy.mycorp.com" (defaults to port 80) or "webproxy.mycorp.com:8080" (default : )
 * `WM_ENABLE_BROWSER_PROXY`: [yes/no] Run as a browser proxy. See [browser-proxying](http://wiremock.org/docs/proxying/) (default : no)
 * `WM_DISABLE_REQUEST_JOURNAL`: [yes/no] Disable the request journal, which records incoming requests for later verification. This allows WireMock to be run (and serve stubs) for long periods (without resetting) without exhausting the heap. The `WM_RECORD_MAPPING` option isn’t available if this one is specified (default : no)
-* `WM_CONTAINER_THREADS`: [yes/no] The number of threads created for incoming requests (default : 10)
+* `WM_CONTAINER_THREADS`: [number of threads] The number of threads created for incoming requests (default : 10)
 * `WM_MAX_REQUESTS_JOURNAL_ENTRIES`: Set maximum number of entries in request journal (if enabled). When this limit is reached oldest entries will be discarded (default : )
 * `WM_JETTY_REQUEST_THREADS`: The number of threads Jetty uses for accepting requests (default : )
 * `WM_JETTY_QUEUE_SIZE`: The Jetty queue size for accepted requests (default : )
