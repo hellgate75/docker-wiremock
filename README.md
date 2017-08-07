@@ -2,7 +2,7 @@
 
 ## Docker Image for Wiremock™ Server
 
-This Docker Image prepare to run a Wiremock™ Server, useful to develop contract between UI and service layers
+This Docker Image prepare to run a Wiremock™ Server, useful to develop contract between service layers
 
 
 ### Wiremock™ Server versions
