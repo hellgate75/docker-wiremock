@@ -25,7 +25,7 @@ DAEMON_STATUS=/usr/local/bin/status-wiremock-server
 PIDFILE=/var/run/wiremock.pid
 SCRIPTNAME=/etc/init.d/"$NAME"
 
-test -f $DAEMON || exit 0
+test -f $DAEMON_START || exit 0
 
 . /lib/lsb/init-functions
 
@@ -85,7 +85,7 @@ status)
         echo "Wiremock Server status : $(/bin/bash -c $DAEMON_STATUS)"
         status_of_proc -p $PIDFILE $DAEMON_START $NAME && exit 0 || exit $?
         ;;
-*)	log_action_msg "Usage: /etc/init.d/cron {start|stop|status|restart}"
+*)	log_action_msg "Usage: /etc/init.d/wiremock {start|stop|status|restart}"
         exit 2
         ;;
 esac
